@@ -1,0 +1,77 @@
+local player = game.Players.LocalPlayer
+
+local playerGui = player:WaitForChild("PlayerGui")
+
+local tweenService = game:GetService("TweenService")
+
+
+
+-- إنشاء الواجهة
+
+local screenGui = Instance.new("ScreenGui", playerGui)
+
+screenGui.Name = "FarisGui"
+
+
+
+local frame = Instance.new("Frame", screenGui)
+
+frame.Size = UDim2.new(0, 300, 0, 60)
+
+frame.Position = UDim2.new(0.5, -150, 0.05, 0)
+
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+
+frame.BorderSizePixel = 0
+
+frame.BackgroundTransparency = 1 -- يبدأ شفافاً
+
+
+
+local corner = Instance.new("UICorner", frame)
+
+corner.CornerRadius = UDim.new(0, 15)
+
+
+
+local textLabel = Instance.new("TextLabel", frame)
+
+textLabel.Size = UDim2.new(1, 0, 1, 0)
+
+textLabel.Text = "عمك, فارس" -- هنا النص المخصص
+
+textLabel.TextColor3 = Color3.fromRGB(0, 255, 255) -- لون نيون
+
+textLabel.Font = Enum.Font.GothamBold
+
+textLabel.TextSize = 25
+
+textLabel.BackgroundTransparency = 1
+
+textLabel.TextTransparency = 1 -- يبدأ شفافاً
+
+
+
+-- تأثير الظهور (Tween)
+
+local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+
+tweenService:Create(frame, tweenInfo, {BackgroundTransparency = 0.2}):Play()
+
+tweenService:Create(textLabel, tweenInfo, {TextTransparency = 0}):Play()
+
+
+
+-- إخفاء الرسالة بعد 4 ثوانٍ
+
+task.delay(4, function()
+
+	tweenService:Create(frame, tweenInfo, {BackgroundTransparency = 1}):Play()
+
+	tweenService:Create(textLabel, tweenInfo, {TextTransparency = 1}):Play()
+
+	task.wait(1)
+
+	screenGui:Destroy()
+
+end)
